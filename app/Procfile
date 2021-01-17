@@ -1,1 +1,1 @@
-web: braid-count-server-exe   # $ cat *.cabal | grep executable
+web: braid-count-server-exe
