@@ -13,6 +13,7 @@ import Data.Monoid (mconcat)
 import qualified Data.Text as T
 import Data.ByteString.Lazy ( ByteString )
 import qualified Data.Text.Internal.Lazy as L
+import System.Environment ( getEnv )
 import Control.Concurrent.MVar
     ( swapMVar, newMVar, readMVar, MVar )
 
@@ -26,4 +27,7 @@ application v req respond =
     else strictRequestBody req >>= \body -> swapMVar v body >> readMVar v >>= \b -> respond $ responseLBS status200 [("Content-Type", "text/plain")] b
 
 server :: IO ()
-server = var >>= \v -> run 3000 $ application v
+server = do
+    v <- var
+    port <- read <$> getEnv "PORT"
+    run port $ application v
