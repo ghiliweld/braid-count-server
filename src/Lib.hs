@@ -7,6 +7,7 @@ module Lib
 
 import Network.Wai.Handler.Warp (run)  
 import Network.Wai
+import Network.Wai.Middleware.Cors
 import Network.HTTP.Types.Status (status200)
 import Network.HTTP.Types.Method                        (Method, methodGet, methodPut, methodPatch)
 import Data.Monoid (mconcat)
@@ -30,4 +31,4 @@ server :: IO ()
 server = do
     v <- var
     port <- read <$> getEnv "PORT"
-    run port $ application v
+    run port $ simpleCors $ application v

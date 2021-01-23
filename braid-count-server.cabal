@@ -42,6 +42,7 @@ library
     , http-types
     , wai-extra
     , case-insensitive
+    , wai-cors
   default-language: Haskell2010
 
 executable braid-count-server-exe
